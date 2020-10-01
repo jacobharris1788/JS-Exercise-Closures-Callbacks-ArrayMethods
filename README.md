@@ -42,6 +42,8 @@ Find the file `index.js` and complete the tasks until your tests are passing.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+A closure is like a backpack for a function. It carries the state of it's scope.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +65,20 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+  A closure happens when personalDice is created, and when the inner function is created.
+  Closures are created whenever a function is created.
+
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+  Every time dansRoll is called, it rolls new dice, which wouldn't happen without using the closure. 
+
+
 c. What is the lexical scope of `newRoll`? 
+
+  newRoll has access to it's own function scope, the function scope of its parent function, and the global scope.
+
 
 ### Task 3 - Stretch Goals
 
