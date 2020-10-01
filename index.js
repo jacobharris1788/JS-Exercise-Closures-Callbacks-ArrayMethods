@@ -27,11 +27,14 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * counter 1 has the ability to make multiple seperate counters. counter 2 is just changing that one value.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * The first one. It has a nested function.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * counter1 is preferable to save memory. counter 2 is better if you aren't worried about dealing with too many global variables.
+ * 
 */
 
 // counter1 code
@@ -56,10 +59,9 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  score = Math.floor(Math.random()*(2-0+1)+0)
+  return score;
 }
 
 /* Task 3: finalScore()
@@ -76,11 +78,17 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(cb, number){
+  let home = 0;
+  let away = 0;
+  for (let i = 0; i < number; i++) {
+    home = home + cb();
+    away = away + cb();
+  }
+  return {"Away": away,"Home": home}
 }
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -104,8 +112,22 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+
+function scoreboard(cbFS, cbInning, num) {
+  let scoreDB = [];
+  let finalHome = 0;
+  let finalAway = 0;
+  
+  for (let i = 0; i < num; i++) {
+    newInning = cbFS(cbInning, 1) //Store the info of a single inning
+
+    scoreDB.push(`Inning ${i+1}: ${JSON.stringify(newInning).substr(1, 17)}`); //Push the info into an array (Used JSON.stringify to print out the objects contents.)
+
+    finalHome = finalHome + parseInt(JSON.stringify(newInning).substr(17, 1)); //These two lines increment the final score.
+    finalAway = finalAway + parseInt(JSON.stringify(newInning).substr(8, 1));
+  }
+  scoreDB.push(`Final Score - Away:${finalAway} Home:${finalHome}`) //Pushes the final score as the last item in the score.
+  return scoreDB;
 }
 
-
+console.log(scoreboard(finalScore, inning, 9));
